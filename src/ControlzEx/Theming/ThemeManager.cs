@@ -200,37 +200,47 @@ namespace ControlzEx.Theming
             }
         }
 
+#if NETCOREAPP5_0
+        private void ThemesInternalCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+#else
         private void ThemesInternalCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+#endif
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (var newItem in e.NewItems.OfType<Theme>())
+                    if (e.NewItems != null)
                     {
-                        if (this.baseColorsInternal.Contains(newItem.BaseColorScheme) == false)
+                        foreach (var newItem in e.NewItems.OfType<Theme>())
                         {
-                            this.baseColorsInternal.Add(newItem.BaseColorScheme);
-                        }
+                            if (this.baseColorsInternal.Contains(newItem.BaseColorScheme) == false)
+                            {
+                                this.baseColorsInternal.Add(newItem.BaseColorScheme);
+                            }
 
-                        if (this.colorSchemesInternal.Contains(newItem.ColorScheme) == false)
-                        {
-                            this.colorSchemesInternal.Add(newItem.ColorScheme);
+                            if (this.colorSchemesInternal.Contains(newItem.ColorScheme) == false)
+                            {
+                                this.colorSchemesInternal.Add(newItem.ColorScheme);
+                            }
                         }
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var oldItem in e.OldItems.OfType<Theme>())
+                    if (e.OldItems != null)
                     {
-                        if (this.themesInternal.Any(x => x.BaseColorScheme == oldItem.BaseColorScheme) == false)
+                        foreach (var oldItem in e.OldItems.OfType<Theme>())
                         {
-                            this.baseColorsInternal.Remove(oldItem.BaseColorScheme);
-                        }
+                            if (this.themesInternal.Any(x => x.BaseColorScheme == oldItem.BaseColorScheme) == false)
+                            {
+                                this.baseColorsInternal.Remove(oldItem.BaseColorScheme);
+                            }
 
-                        if (this.themesInternal.Any(x => x.ColorScheme == oldItem.ColorScheme) == false)
-                        {
-                            this.baseColorsInternal.Remove(oldItem.ColorScheme);
+                            if (this.themesInternal.Any(x => x.ColorScheme == oldItem.ColorScheme) == false)
+                            {
+                                this.baseColorsInternal.Remove(oldItem.ColorScheme);
+                            }
                         }
                     }
 
@@ -1233,7 +1243,7 @@ namespace ControlzEx.Theming
             }
         }
 
-        #region Windows-Settings
+#region Windows-Settings
 
         /// <summary>
         /// Synchronizes the current <see cref="Theme"/> with the "app mode" setting from windows.
@@ -1356,7 +1366,11 @@ namespace ControlzEx.Theming
             }
         }
 
+#if NETCOREAPP5_0
+        private void HandleStaticPropertyChanged(object? sender, PropertyChangedEventArgs e)
+#else
         private void HandleStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
+#endif
         {
             if (e.PropertyName == nameof(SystemParameters.HighContrast)
                 && this.isSyncScheduled == false)
@@ -1369,7 +1383,7 @@ namespace ControlzEx.Theming
 
         private bool isSyncScheduled;
 
-        #endregion WindowsAppModeSetting
+#endregion WindowsAppModeSetting
 
         private static bool TryConvertColorFromString(string colorScheme, out Color color)
         {

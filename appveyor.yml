@@ -1,11 +1,9 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
-# configuration for develop/CI and master/Release branch
-
 branches:
   only:
     - develop
-    - master
+    - main
     - /\d*\.\d*\.\d*/
 
 environment:
@@ -24,6 +22,8 @@ test: off
 
 install:
   #- cinst dotnetcore-sdk --version=3.1.100
+  - ps: Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile 'dotnet-install.ps1'
+  - ps: ./dotnet-install.ps1 -Version '5.0.100-preview.6.20318.15'
 
 pull_requests:
   do_not_increment_build_number: false
