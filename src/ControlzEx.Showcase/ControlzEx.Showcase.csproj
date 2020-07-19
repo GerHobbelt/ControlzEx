@@ -15,6 +15,7 @@
     </PropertyGroup>
     <PropertyGroup>
       <DefaultItemExcludes>$(DefaultItemExcludes);**/*.Template.xaml</DefaultItemExcludes>
+      <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     </PropertyGroup>
     <!-- Items include -->
     <ItemGroup>
@@ -35,12 +36,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="XamlColorSchemeGenerator" version="4-*" privateAssets="All" includeAssets="build" />
+      <PackageReference Update="JetBrains.Annotations" Version="2020.1.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>compile; build</IncludeAssets>
+      </PackageReference>
+      <PackageReference Update="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+      <PackageReference Update="WpfAnalyzers" Version="3.1.0" />
     </ItemGroup>
 
     <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds">
       <!-- Generate theme files -->
-      <Message Text="$(XamlColorSchemeGeneratorExecutable)" />
-      <Exec Command="&quot;$(XamlColorSchemeGeneratorExecutable)&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
+      <Message Text="Generate theme files using XamlColorSchemeGenerator" />
+      <Exec Command="&quot;$(MSBuildProjectDirectory)\..\..\..\XamlColorSchemeGenerator\bin\Debug\netcoreapp3.1\XamlColorSchemeGenerator.exe&quot; -v" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
     </Target>
 </Project>

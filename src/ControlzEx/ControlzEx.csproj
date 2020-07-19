@@ -48,5 +48,14 @@
     <!-- reference includes -->
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All" IncludeAssets="build; native" />
+        <PackageReference Include="System.Text.Json" Version="4.7.2" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Update="JetBrains.Annotations" Version="2020.1.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>compile; build</IncludeAssets>
+      </PackageReference>
+      <PackageReference Update="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+      <PackageReference Update="WpfAnalyzers" Version="3.1.0" />
     </ItemGroup>
 </Project>

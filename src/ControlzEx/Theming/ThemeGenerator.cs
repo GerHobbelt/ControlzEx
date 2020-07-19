@@ -28,8 +28,10 @@ namespace ControlzEx.Theming
 #endif
         }
 
-        // The order of the passed valueSources is important.
-        // More specialized/concrete values must be passed first and more generic ones must follow.
+        /// <summary>
+        /// The order of the passed valueSources is important.
+        /// More specialized/concrete values must be passed first and more generic ones must follow.
+        /// </summary>
         public virtual string GenerateColorSchemeFileContent(string templateContent, string themeName, string themeDisplayName, string baseColorScheme, string colorScheme, string alternativeColorScheme, bool isHighContrast, params Dictionary<string, string>[] valueSources)
         {
             templateContent = templateContent.Replace("{{ThemeName}}", themeName);
