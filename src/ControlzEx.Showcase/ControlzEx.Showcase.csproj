@@ -46,7 +46,11 @@
 
     <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds">
       <!-- Generate theme files -->
+      <PropertyGroup>
+        <!-- <XamlColorSchemeGeneratorPath>$(NuGetPackageRoot)/xamlcolorschemegenerator/$(XamlColorSchemeGeneratorVersion)/tools/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath> -->
+        <XamlColorSchemeGeneratorPath>$(MSBuildProjectDirectory)\..\..\..\XamlColorSchemeGenerator\bin\Debug\netcoreapp3.1\XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath>
+      </PropertyGroup>
       <Message Text="Generate theme files using XamlColorSchemeGenerator" />
-      <Exec Command="&quot;$(MSBuildProjectDirectory)\..\..\..\XamlColorSchemeGenerator\bin\Debug\netcoreapp3.1\XamlColorSchemeGenerator.exe&quot; -v" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
+      <Exec Command="&quot;$(XamlColorSchemeGeneratorPath)&quot; -v" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
     </Target>
 </Project>

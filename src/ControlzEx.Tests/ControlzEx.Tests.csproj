@@ -23,10 +23,10 @@
     <ProjectReference Include="..\ControlzEx\ControlzEx.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
 
-    <PackageReference Include="NUnit" version="3.*" />
+    <PackageReference Include="NUnit" version="3.12.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,7 +46,11 @@
 
   <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds">
     <!-- Generate theme files -->
+    <PropertyGroup>
+      <!-- <XamlColorSchemeGeneratorPath>$(NuGetPackageRoot)/xamlcolorschemegenerator/$(XamlColorSchemeGeneratorVersion)/tools/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath> -->
+      <XamlColorSchemeGeneratorPath>$(MSBuildProjectDirectory)\..\..\..\XamlColorSchemeGenerator\bin\Debug\netcoreapp3.1\XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath>
+    </PropertyGroup>
     <Message Text="Generate theme files using XamlColorSchemeGenerator" />
-    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\..\..\XamlColorSchemeGenerator\bin\Debug\netcoreapp3.1\XamlColorSchemeGenerator.exe&quot; -v" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
+    <Exec Command="&quot;$(XamlColorSchemeGeneratorPath)&quot; -v" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
   </Target>
 </Project>
