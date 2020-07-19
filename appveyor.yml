@@ -3,7 +3,6 @@
 branches:
   only:
     - develop
-    - main
     - /\d*\.\d*\.\d*/
 
 environment:
